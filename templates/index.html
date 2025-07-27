@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sohbet Uygulaması</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<div class="auth-container" style="display: none;">
+    <h2>Giriş Yap</h2>
+    <input type="text" id="login-username" placeholder="Kullanıcı adı" />
+    <input type="password" id="login-password" placeholder="Şifre" />
+    <button id="login-btn">Giriş Yap</button>
+    <p id="login-status" class="auth-status"></p>
+
+    <h2>Kayıt Ol</h2>
+    <input type="text" id="register-username" placeholder="Kullanıcı adı" />
+    <input type="password" id="register-password" placeholder="Şifre" />
+    <button id="register-btn">Kayıt Ol</button>
+    <p id="register-status" class="auth-status"></p>
+</div>
+
+<div class="chat-container" style="display: none;">
+    <div class="chat-header">
+        <h2>SOHBET</h2>
+        <button id="logout-btn">Çıkış Yap</button>
+    </div>
+
+
+    <div id="chat-box">
+        {% for msg in messages %}
+            <div class="message {% if msg.username == current_user %}sent-message{% else %}received-message{% endif %}">
+                <strong>{{ msg.username }}:</strong> {{ msg.message }}
+                {% if msg.status == 'read' %}
+                  <span class="message-status">✓✓ okundu</span>
+                {% elif msg.status == 'delivered' %}
+                  <span class="message-status">✓✓ teslim</span>
+                {% elif msg.status == 'sent' %}
+                  <span class="message-status">✓ gönderildi</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="online-users">
+        <h3>Kayıtlı Kullanıcılar</h3>
+        <ul id="online-user-list"></ul>
+    </div>
+
+    <div class="message-input-container">
+        <input type="text" id="message-input" placeholder="Mesajınızı yazın..." />
+        <button id="send-btn">Gönder</button>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<div id="controls-container" style="text-align: center; margin-top: 10px;"></div>
+<div id="user-list"></div>
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('jwt');
+        const chatContainer = document.querySelector('.chat-container');
+        const authContainer = document.querySelector('.auth-container');
+
+        if (token) {
+            const url = new URL(window.location.href);
+            if (!url.searchParams.get('token')) {
+                url.searchParams.set('token', token);
+                window.location.href = url.toString();
+                return;
+            }
+            authContainer.style.display = 'none';
+            chatContainer.style.display = 'flex';
+        } else {
+            authContainer.style.display = 'block';
+            chatContainer.style.display = 'none';
+        }
+    });
+
+    // Kullanıcı adı localStorage'a yazılsın
+    localStorage.setItem('username', "{{ current_user }}");
+</script>
+<audio id="remoteAudio" autoplay></audio>
+<!-- Çağrı bildirimi -->
+<div id="incoming-call" style="display:none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: white; border: 1px solid #ccc; padding: 15px; z-index: 9999;">
+  <p id="caller-name">Bir çağrı var</p>
+  <button onclick="acceptCall()">Kabul Et</button>
+  <button onclick="rejectCall()">Reddet</button>
+</div>
+<button id="end-call-btn" class="end-call-btn" style="display:none;">Bitir</button>
+
+
+<!-- Uzaktaki sesi çal -->
+<audio id="remoteAudio" autoplay></audio>
+
+<!-- Arama durumu: "Aranıyor..." -->
+<div id="calling-status" style="display:none; position: fixed; top: 10px; right: 10px; background: #f9f9f9; border: 1px solid #aaa; padding: 10px; z-index: 10000;">
+  <span id="calling-text">Aranıyor...</span>
+</div>
+
+
+</body>
+
+</html>

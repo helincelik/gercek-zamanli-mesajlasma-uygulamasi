@@ -1,0 +1,28 @@
+# Python derlenmiş dosyaları
+__pycache__/
+*.py[cod]
+
+# Sanal ortamlar
+.venv/
+venv/
+
+# Flask özel dizinleri
+instance/
+
+# SSL sertifikaları (gizli!)
+*.pem
+*.key
+
+# Ortam dosyaları
+.env
+
+# Log ve sqlite dosyaları
+*.log
+*.sqlite3
+*.db
+
+# IDE/editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

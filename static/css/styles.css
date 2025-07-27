@@ -1,0 +1,274 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.chat-container {
+    max-width: 600px;
+    height: 90vh;
+    margin: 30px auto;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: #003366;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ✅ Tüm mesajlar için ortak stil */
+.message {
+    padding: 10px 15px;
+    border-radius: 20px;
+    word-wrap: break-word;
+    clear: both;
+    display: inline-block;
+    max-width: 70%;
+    font-size: 15px;
+}
+
+/* ✅ Gönderen kişinin mesajı (sağa yaslı) */
+.sent-message {
+    background-color: #003366;
+    color: white;
+    text-align: right;
+    align-self: flex-end; /* 🔥 en kritik satır */
+    border-radius: 15px 15px 0 15px;
+}
+
+/* ✅ Alıcının mesajı (sola yaslı) */
+.received-message {
+    background-color: #e2e8f0;
+    color: black;
+    text-align: left;
+    align-self: flex-start;
+    border-radius: 15px 15px 15px 0;
+}
+
+.message-status {
+    font-size: 12px;
+    color: gray;
+    margin-left: 8px;
+}
+
+.message-input-container {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+}
+
+#message-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+#send-btn {
+    padding: 10px 20px;
+    background-color: teal;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.auth-container h2 {
+    text-align: center;
+    color: #003366;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.auth-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.auth-status {
+    text-align: center;
+    margin-top: 10px;
+    color: red;
+}
+
+.online-users {
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f8f8f8;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+.online-users h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: #003366;
+}
+
+.online-users li {
+    list-style: none;
+    margin-bottom: 5px;
+}
+
+.online-users button {
+    margin-left: 10px;
+    padding: 2px 6px;
+    font-size: 12px;
+    background-color: teal;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.private-msg-btn {
+  margin-left: 10px;
+  padding: 2px 6px;
+  font-size: 12px;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.call-btn {
+  margin-left: 5px;
+  padding: 3px 8px;
+  font-size: 12px;
+  background-color: darkorange;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#calling-status {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 9999;
+}
+#incoming-call {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  padding: 20px;
+  z-index: 10000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+#incoming-call p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #003366;
+}
+
+#incoming-call button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#incoming-call button:first-child {
+  background-color: #28a745;
+  color: white;
+}
+
+#incoming-call button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+#send-btn:hover {
+  background-color: #006666;
+}
+.call-btn:hover {
+  background-color: orangered;
+}
+.private-msg-btn:hover {
+  background-color: #007070;
+}
+.end-call-btn:hover {
+  background-color: darkred;
+}
+.end-call-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease;
+}
+
+.end-call-btn:hover {
+  background-color: #c82333;
+}
+
